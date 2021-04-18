@@ -2,6 +2,7 @@
  import QRCodeScanner from 'react-native-qrcode-scanner';
  import React, { Component } from 'react';
  import { Text, StyleSheet, TouchableOpacity, Linking, Alert} from 'react-native';
+ import { RNCamera } from 'react-native-camera';
  import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
  import {createAppContainer} from 'react-navigation';
  import CustomColor  from '../value/CustomColor';
@@ -64,6 +65,7 @@
      return (
          <QRCodeScanner
         onRead={this.onSuccess}
+        flashMode={RNCamera.Constants.FlashMode.torch}
         topContent={
           <Text style={styles.titleText}>{this.state.visible ? null : 'Frame on the QR-code, please!'}</Text>
         }
@@ -112,7 +114,7 @@
    },
    button: {
      flexDirection: 'column',
-     backgroundColor: CustomColor.backgroundButton,
+     backgroundColor: CustomColor.lightBlue,
      height: 50,
      width: wp('30%'),
      borderRadius: 60,

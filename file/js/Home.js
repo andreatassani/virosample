@@ -58,7 +58,7 @@
    },
    button: {
      flexDirection: 'column',
-     backgroundColor: CustomColor.backgroundButton,
+     backgroundColor: CustomColor.lightBlue,
      height: 50,
      width: wp('80%'),
      borderRadius: 60,

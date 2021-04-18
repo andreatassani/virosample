@@ -8,136 +8,136 @@
                 "questions": [
                     {
                         "text": "Che tipo di estintore é?",
-                        "id": 1,
+                        "id": 0,
                         "type": "singola",
                         "correct": [
-                            1
+                            0
                         ],
                         "answers": [
                             {
-                                "answerID": 1,
+                                "answerID": 0,
                                 "text": "estintore a CO2"
                             },
                             {
-                                "answerID": 2,
+                                "answerID": 1,
                                 "text": "estintore a polvere"
                             },
                             {
-                                "answerID": 3,
+                                "answerID": 2,
                                 "text": "estintore idrico"
                             },
                             {
-                                "answerID": 4,
+                                "answerID": 3,
                                 "text": "estintore a schiuma"
                             }
                         ]
                     },
                     {
                         "text": "Per quale tipo di incendio é adatto?",
-                        "id": 2,
+                        "id": 1,
                         "type": "multipla",
                         "correct": [
+                            1,
                             2,
-                            3,
-                            4
+                            3
                         ],
                         "answers": [
                             {
-                                "answerID": 1,
+                                "answerID": 0,
                                 "text": "materiali solidi che formano braci"
                             },
                             {
-                                "answerID": 2,
+                                "answerID": 1,
                                 "text": "liquidi infiammabili"
                             },
                             {
-                                "answerID": 3,
+                                "answerID": 2,
                                 "text": "gas infiammabili"
                             },
                             {
-                                "answerID": 4,
+                                "answerID": 3,
                                 "text": "metalli"
                             },
                             {
-                                "answerID": 5,
+                                "answerID": 4,
                                 "text": "apparecchiature elettriche in tensione"
                             }
                         ]
                     },
                     {
                         "text": "Come si utilizza?",
-                        "id": 3,
+                        "id": 2,
                         "type": "unica risposta",
                         "correct": [
-                            2
+                            1
                         ],
                         "answers": [
                             {
-                                "answerID": 1,
+                                "answerID": 0,
                                 "text": "mi metto in posizione, \n\r schiaccio la leva, \n\r tolgo la sicura"
                             },
                             {
-                                "answerID": 2,
+                                "answerID": 1,
                                 "text": "tolgo la sicura, \n\r punto la base della fiamma, \n\r schiaccio la leva"
                             },
                             {
                                 "text": "controllo il manometro, \n\r punto il picco della fiamma, \n\r schiaccio la leva"
                             },
                             {
-                                "answerID": 4,
+                                "answerID": 3,
                                 "text": "chiamo i VVF, \n\r sostengo il pompiere, \n\r gli porto un altro estintore quando si scarica il primo"
                             }
                         ]
                     },
                     {
                         "text": "Quali sono i suoi componenti principali?",
-                        "id": 4,
+                        "id": 3,
                         "type": "risposta multipla",
                         "correct": [
-                            1,
-                            3,
-                            6,
-                            7
+                            0,
+                            2,
+                            5,
+                            6
                         ],
                         "answers": [
                             {
-                                "answerID": 1,
+                                "answerID": 0,
                                 "text": "serbatoio"
                             },
                             {
-                                "answerID": 2,
+                                "answerID": 1,
                                 "text": "schiuma"
                             },
                             {
-                                "answerID": 3,
+                                "answerID": 2,
                                 "text": "valvola"
                             },
                             {
-                                "answerID": 4,
+                                "answerID": 3,
                                 "text": "lucchetto"
                             },
                             {
-                                "answerID": 5,
+                                "answerID": 4,
                                 "text": "occhiali"
                             },
                             {
-                                "answerID": 6,
+                                "answerID": 5,
                                 "text": "manichetta con ugello"
                             },
                             {
-                                "answerID": 7,
+                                "answerID": 6,
                                 "text": "leva"
                             },
                             {
-                                "answerID": 8,
+                                "answerID": 7,
                                 "text": "maniglia"
                             },
                             {
-                                "answerID": 9,
+                                "answerID": 8,
                                 "text": "guanti"
                             },
                             {
-                                "answerID": 10,
+                                "answerID": 9,
                                 "text": "cappello"
                             }
                         ]

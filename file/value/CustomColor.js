@@ -8,7 +8,7 @@ export default {
   dark: '#444',
   darker: '#222',
   black: '#000',
-  backgroundButton: '#90ccf0',
+  lightBlue: '#90ccf0',
   red: '#FF2D00',
   green: '#09D000',
   blue: '#0026D0'
