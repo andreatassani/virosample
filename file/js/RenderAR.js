@@ -15,11 +15,13 @@ var MyViroText = (props) => {
   textAlign={props.align}
   textAlignVertical="top"
   textLineBreakMode="Justify"
-  width={2.3} height={1.7}
-  color={props.color}
-  outerStroke={{ type: "Outline", width: 2, color: CustomColor.darker}}
-  style={{ fontSize: 20, fontWeight: props.weight}}
+  rotate={props.rot}
+  width={3} height={1.7}
+  color={CustomColor.darker}
+  outerStroke={{ type: "Outline", width: props.border, color: props.color}}
+  style={{ fontSize: 24, fontWeight: props.weight}}
   position={props.pos}
+  animation= {props.anim}
   onClick={props.click}
 />
 }
@@ -59,9 +61,8 @@ class RenderAR extends Component {
     this._setVisibleQuestion = this._setVisibleQuestion.bind(this);
     this._setVisibleAnswer = this._setVisibleAnswer.bind(this);
     this._checkCorrectAnswer = this._checkCorrectAnswer.bind(this);
-    this._getArrayPositionByNUmberItem = this._getArrayPositionByNUmberItem.bind(this);
+    this._getArrayPositionByNUmberItemRadius = this._getArrayPositionByNUmberItemRadius.bind(this);
 
-    this._onClick3DObj = this._onClick3DObj.bind(this); //TO-DO: da togliere in fase di produzione
   }
 
   render() {
@@ -69,8 +70,8 @@ class RenderAR extends Component {
     var answers=[];
     var result = <MyViroText text={this.state.textDoneWrong}
                              color={this.state.colorDoneWrong}
-                             pos={[-0.25, -1.5, -6]}
-                             click= {null} />
+                             pos={[-0.25, -2, -6]}
+                             click= {null} />;
     var img = <ViroImage
                              height={0.5}
                              width={1}
@@ -78,7 +79,7 @@ class RenderAR extends Component {
                              position= {[-1.5,-3.5,-6]}
                              placeholderSource={require("./res/images/arrow.png")}
                              source={require("./res/images/arrow.png")}
-                             onClick = {this._onClick3DObj}/>
+                             onClick = {() => this._setBackToQuestions()}/>;
     if(this.state.isQuestionClicked) {
       answers = this._getRenderAnswers(this.state.questionIndexClicked);  
     }
@@ -105,7 +106,7 @@ class RenderAR extends Component {
   //-----------------------------------------------------------------------------------------ON-CLICK
 
   _onClickAnswer(tmpIndexAnswer) {
-    var delay = 3000;
+    var delay = 2000;
     if (this.state.arrayCorrectAnswer.includes(tmpIndexAnswer)) {
       this.setState({     setVisibleDoneWrong: true,
                           colorDoneWrong: CustomColor.green,
@@ -116,9 +117,8 @@ class RenderAR extends Component {
         this.forceUpdate();
       }
       if (compareArrays(this.state.arrayDoneAnswer, this.state.arrayCorrectAnswer)) {
-        this.state.arrayDoneQuestion.push(this.state.questionIndexClicked);
 
-        setTimeout(() => {this._setBackToQuestions()}, this.setState({arrayDoneAnswer: []}), delay)
+        setTimeout(() => {this.state.arrayDoneQuestion.push(this.state.questionIndexClicked), this._setBackToQuestions(), this.setState({arrayDoneAnswer: []})}, delay)
       }
     } else {
       this.state.arrayWrongAnswer.push(tmpIndexAnswer);
@@ -139,11 +139,6 @@ class RenderAR extends Component {
       this.setState({ questionIndexClicked: tmpIndexQuestion, colorQuestion: CustomColor.white, arrayCorrectAnswer: a, isQuestionClicked: true, arrayWrongAnswer: []}),
       this._getRenderAnswers(tmpIndexQuestion))
   }
-
-  _onClick3DObj() { //TO-DO: da togliere in fase di produzione (insieme all'"onClick nel render")
-    this._setBackToQuestions();
-  }
-
   //-----------------------------------------------------------------------------------------GETTER
 
   _getSource3DObj() {
@@ -157,11 +152,14 @@ class RenderAR extends Component {
   _getRenderQuestions() {
     let q = jsonDataSelected.questions;
     var arrayQ = [];
-    var arrayP = this._getArrayPositionByNUmberItem(q.length);
+    var arrayP = this._getArrayPositionByNUmberItemRadius(q.length);
     for (let i = 0; i < q.length; i++) {
       var tmp = <MyViroText text={q[i].text}
       align = "center"
-      weight = "bold"
+      weight = '800'
+      anim={{name: "shaking", run: true, loop: true}}
+      rot={[0,0,-10]}
+      border = {3}
       color={this._setQuestionColor(i)}
       pos={this.state.questionIndexClicked == q[i].id ? this.state.questionTextPosition : arrayP[i]}
       click={() => this._onClickQuestion(q[i].id)} />;
@@ -177,15 +175,18 @@ class RenderAR extends Component {
     for (let i = 0; i < a.length; i++) {
         arrayA.push(<MyViroText text={(i+1)+"- "+a[i].text}
           align = "left"
-          weight = "normal"
+          weight = "bold"
+          rot = {null}
+          border = {2}
           color={this._setAnswerColor(i)}
+          anim={null}
           pos={arrayP[i]}
           click={() => this._onClickAnswer(a[i].answerID)} />)
     }
     return arrayA;
   }
 
-  _getArrayPositionByNUmberItem(integer) { 
+  _getArrayPositionByNUmberItemRadius(integer) { 
     var radius = 1.8;
     var nEl = integer;
     var angle = 0;
@@ -202,7 +203,7 @@ class RenderAR extends Component {
   }
 
   _getArrayPositionByNUmberItemCulomn(integer) { 
-    var maxDelta = 4;
+    var maxDelta = 6;
     var nEl = integer;
     var delta = maxDelta / nEl;
     var x = 1.2;
@@ -233,12 +234,12 @@ class RenderAR extends Component {
       return CustomColor.green;
     } else if(this.state.arrayWrongAnswer.includes(i)){
       return CustomColor.red;
-    } else return CustomColor.lightBlue;
+    } else return CustomColor.white;
   }
 
   _setQuestionColor(i) {
     if(this.state.questionIndexClicked == i){ 
-      return CustomColor.white;
+      return CustomColor.lightBlue;
     } else if(this.state.arrayDoneQuestion.includes(i)){
       return CustomColor.green;
     } else if(this.state.arrayMissQuestion.includes(i)){
@@ -288,6 +289,20 @@ ViroAnimations.registerAnimations({
     },
     duration: 2000,
   },
+
+  shakingUp: {
+    properties: {
+      rotateZ: "+=5",
+    },
+    duration: 400,
+  },
+  shakingDown: {
+    properties: {
+      rotateZ: "-=5",
+    },
+    duration: 400,
+  },
+  shaking:[["shakingUp", "shakingDown"],]
 });
 
   //-----------------------------------------------------------------------------------------UTILITY
