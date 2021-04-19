@@ -1,7 +1,7 @@
 'use strict';
 import React, { Component, useState } from 'react';
 import { Alert, ToastAndroid } from 'react-native';
-import { ViroARScene, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroFlexView } from 'react-viro';
+import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroImage } from 'react-viro';
 import CustomColor from '../value/CustomColor';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
 var json = require("./res/json/questionAnswer.json");
@@ -9,15 +9,16 @@ var json = require("./res/json/questionAnswer.json");
 var jsonDataSelected = json.item[0].info;
 
 var MyViroText = (props) => {
-  return <ViroText
+  return <ViroBox position= {props.pos} width={2} length={1} height={2} materials={["front"]}/>,
+    <ViroText
   text={props.text}
-  textAlign="center"
+  textAlign={props.align}
   textAlignVertical="top"
   textLineBreakMode="Justify"
-  width={2} height={1}
+  width={2.3} height={1.7}
   color={props.color}
   outerStroke={{ type: "Outline", width: 2, color: CustomColor.darker}}
-  style={{ fontSize: 18, fontStyle: "italic"}}
+  style={{ fontSize: 20, fontWeight: props.weight}}
   position={props.pos}
   onClick={props.click}
 />
@@ -32,10 +33,11 @@ class RenderAR extends Component {
     this.state = {
       'obj3DRef': 'estintore',
       'rotation': [0, 90, 0],
-      'questionTextPosition': [0, 2, -3],
+      'questionTextPosition': [0.7, 2, -6],
       'isQuestionClicked': false,
       'questionIndexClicked': -1,
       'arrayCorrectAnswer': [],
+      'arrayWrongAnswer': [],
       'arrayDoneAnswer': [],
       'arrayDoneQuestion': [],
       'arrayMissQuestion': [],
@@ -67,8 +69,16 @@ class RenderAR extends Component {
     var answers=[];
     var result = <MyViroText text={this.state.textDoneWrong}
                              color={this.state.colorDoneWrong}
-                             pos={[0, -2, -3]}
+                             pos={[-0.25, -1.5, -6]}
                              click= {null} />
+    var img = <ViroImage
+                             height={0.5}
+                             width={1}
+                             opacity={1}
+                             position= {[-1.5,-3.5,-6]}
+                             placeholderSource={require("./res/images/arrow.png")}
+                             source={require("./res/images/arrow.png")}
+                             onClick = {this._onClick3DObj}/>
     if(this.state.isQuestionClicked) {
       answers = this._getRenderAnswers(this.state.questionIndexClicked);  
     }
@@ -79,13 +89,12 @@ class RenderAR extends Component {
           source={this._getSource3DObj()}
           resources={[this._getResoruces3DObj()]}
           position={this._check3DObjPosition()}
-          scale={[1.5, 1.5, 1.5]}
+          scale={[2, 2, 2]}
           animation={{ name: "rotate", run: true, loop: true }}
           rotation={this.state.rotation}
-          type="OBJ"
-          onClick = {this._onClick3DObj}
-        />
-        
+          type="OBJ" />
+
+        {this.state.isQuestionClicked ? img : null}
         {questions}
         {answers}
         {this.state.setVisibleDoneWrong ? result : null}
@@ -96,11 +105,12 @@ class RenderAR extends Component {
   //-----------------------------------------------------------------------------------------ON-CLICK
 
   _onClickAnswer(tmpIndexAnswer) {
+    var delay = 3000;
     if (this.state.arrayCorrectAnswer.includes(tmpIndexAnswer)) {
       this.setState({     setVisibleDoneWrong: true,
                           colorDoneWrong: CustomColor.green,
                           textDoneWrong: 'CORRETTO'})
-                          setTimeout(() => {this.setState({setVisibleDoneWrong: false})}, 1000)
+                          setTimeout(() => {this.setState({setVisibleDoneWrong: false})}, delay)
       if(!this.state.arrayDoneAnswer.includes(tmpIndexAnswer)){
         this.state.arrayDoneAnswer.push(tmpIndexAnswer);
         this.forceUpdate();
@@ -108,25 +118,25 @@ class RenderAR extends Component {
       if (compareArrays(this.state.arrayDoneAnswer, this.state.arrayCorrectAnswer)) {
         this.state.arrayDoneQuestion.push(this.state.questionIndexClicked);
 
-        this.setState({arrayDoneAnswer: []});
-        setTimeout(() => {this._setBackToQuestions()}, 1100)
+        setTimeout(() => {this._setBackToQuestions()}, this.setState({arrayDoneAnswer: []}), delay)
       }
     } else {
-      this.setState({arrayDoneAnswer: [],
+      this.state.arrayWrongAnswer.push(tmpIndexAnswer);
+      this.setState({
         setVisibleDoneWrong: true,
         colorDoneWrong: CustomColor.red,
         textDoneWrong: '  SBAGLIATO'});
-        setTimeout(() => {this.setState({setVisibleDoneWrong: false})}, 1000)
+        setTimeout(() => {this.setState({ arrayDoneAnswer: [], setVisibleDoneWrong: false})}, delay)
       this.state.arrayDoneQuestion.splice(this.state.arrayDoneQuestion.indexOf(this.state.questionIndexClicked), 1);
       this.state.arrayMissQuestion.push(this.state.questionIndexClicked);
-      setTimeout(() => {this._setBackToQuestions()}, 1100)
+      setTimeout(() => {this._setBackToQuestions()}, delay)
     }
   }
 
   _onClickQuestion(tmpIndexQuestion) {
     let a = jsonDataSelected.questions[tmpIndexQuestion].correct;
     return (
-      this.setState({ questionIndexClicked: tmpIndexQuestion, colorQuestion: CustomColor.white, arrayCorrectAnswer: a, isQuestionClicked: true }),
+      this.setState({ questionIndexClicked: tmpIndexQuestion, colorQuestion: CustomColor.white, arrayCorrectAnswer: a, isQuestionClicked: true, arrayWrongAnswer: []}),
       this._getRenderAnswers(tmpIndexQuestion))
   }
 
@@ -150,6 +160,8 @@ class RenderAR extends Component {
     var arrayP = this._getArrayPositionByNUmberItem(q.length);
     for (let i = 0; i < q.length; i++) {
       var tmp = <MyViroText text={q[i].text}
+      align = "center"
+      weight = "bold"
       color={this._setQuestionColor(i)}
       pos={this.state.questionIndexClicked == q[i].id ? this.state.questionTextPosition : arrayP[i]}
       click={() => this._onClickQuestion(q[i].id)} />;
@@ -160,10 +172,12 @@ class RenderAR extends Component {
 
   _getRenderAnswers(tmpIndexQuestion) {
     let a = jsonDataSelected.questions[tmpIndexQuestion].answers;
-    var arrayP = this._getArrayPositionByNUmberItem(a.length);
+    var arrayP = this._getArrayPositionByNUmberItemCulomn(a.length);
     var arrayA = [];
     for (let i = 0; i < a.length; i++) {
-        arrayA.push(<MyViroText text={a[i].text}
+        arrayA.push(<MyViroText text={(i+1)+"- "+a[i].text}
+          align = "left"
+          weight = "normal"
           color={this._setAnswerColor(i)}
           pos={arrayP[i]}
           click={() => this._onClickAnswer(a[i].answerID)} />)
@@ -172,7 +186,7 @@ class RenderAR extends Component {
   }
 
   _getArrayPositionByNUmberItem(integer) { 
-    var radius = 1.5;
+    var radius = 1.8;
     var nEl = integer;
     var angle = 0;
     var step = (2*Math.PI) / nEl;
@@ -180,12 +194,29 @@ class RenderAR extends Component {
     for(let i=0; i<nEl; i++) {
     var x = radius * Math.cos(angle);
     var y = radius * Math.sin(angle);
-    tmpVect.push([x, y ,-3]);
+    tmpVect.push([x, y ,-6]);
     angle += step;
     };
 
     return tmpVect;
   }
+
+  _getArrayPositionByNUmberItemCulomn(integer) { 
+    var maxDelta = 4;
+    var nEl = integer;
+    var delta = maxDelta / nEl;
+    var x = 1.2;
+    var y = 1;
+    var tmpVect = [];
+    for(let i=0; i<nEl; i++) {
+    tmpVect.push([x, y ,-6]);
+    y = y-delta;
+    };
+
+    return tmpVect;
+  }
+
+  
 
   //---------------------------------------------------------------------------------------SETTER
   
@@ -200,9 +231,9 @@ class RenderAR extends Component {
   _setAnswerColor(i) {
     if(this.state.arrayDoneAnswer.includes(i)) {
       return CustomColor.green;
-    } else {
-      return CustomColor.lightBlue;
-    }
+    } else if(this.state.arrayWrongAnswer.includes(i)){
+      return CustomColor.red;
+    } else return CustomColor.lightBlue;
   }
 
   _setQuestionColor(i) {
@@ -228,7 +259,7 @@ class RenderAR extends Component {
   //-----------------------------------------------------------------------------------------CHECKER
 
   _check3DObjPosition() {
-    return (this.state.isQuestionClicked ? [0, 0.5, -3] : [0, 0.5, -4]);
+    return (this.state.isQuestionClicked ? [-1.2, 0.8, -6] : [0, 0.8, -6]);
   }
 
   _checkCorrectAnswer(tmpIndexAnswer) {
@@ -238,13 +269,13 @@ class RenderAR extends Component {
 
   //-----------------------------------------------------------------------------------------OBJ MATERIAL
 ViroMaterials.createMaterials({
-  frontMaterial: {
+  front: {
     diffuseColor: CustomColor.lightBlue,
   },
-  backMaterial: {
+  back: {
     diffuseColor: CustomColor.white,
   },
-  sideMaterial: {
+  side: {
     diffuseColor: CustomColor.dark,
   },
 });
