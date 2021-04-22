@@ -16,4 +16,7 @@ target 'ViroSample' do
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
 end

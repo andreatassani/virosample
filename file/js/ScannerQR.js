@@ -16,7 +16,6 @@
  var sharedProps = {
    apiKey:"API_KEY_HERE",
  }
-
  
  var UNSET = "UNSET";
  var AR_NAVIGATOR_TYPE = "AR";
@@ -50,6 +49,7 @@
       data : e.data,
       visible : true,
     });
+
   }
    // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
    // if you are building a specific type of experience.
@@ -81,7 +81,7 @@
    // Returns the ViroARSceneNavigator which will start the AR experience
    _getARNavigator() {
      return (
-      this.props.navigation.navigate('AR')
+      this.props.navigation.navigate('AR', {link : this.state.data})
      );
    }
  

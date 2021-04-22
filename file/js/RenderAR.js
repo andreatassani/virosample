@@ -1,13 +1,16 @@
 'use strict';
 import React, { Component, useState } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
+import { Alert, ShadowPropTypesIOS, ToastAndroid } from 'react-native';
 import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroImage } from 'react-viro';
 import CustomColor from '../value/CustomColor';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
+
+var linkScanned = require("./res/json/linkScanned.json");
+var link = linkScanned.linkScanned;
+
 var json = require("./res/json/questionAnswer.json");
-
-var jsonDataSelected = json.item[0].info;
-
+var jsonDataSelected = null;
+     
 var MyViroText = (props) => {
   return <ViroBox position= {props.pos} width={2} length={1} height={2} materials={["front"]}/>,
     <ViroText
@@ -17,8 +20,8 @@ var MyViroText = (props) => {
   textLineBreakMode="Justify"
   rotate={props.rot}
   width={3} height={1.7}
-  color={CustomColor.darker}
-  outerStroke={{ type: "Outline", width: props.border, color: props.color}}
+  color={props.color}
+  outerStroke={{ type: "Outline", width: props.border, color: CustomColor.darker}}
   style={{ fontSize: 24, fontWeight: props.weight}}
   position={props.pos}
   animation= {props.anim}
@@ -27,13 +30,13 @@ var MyViroText = (props) => {
 }
 
 
+
 //-----------------------------------------------------------------------------------------START CLASS
 class RenderAR extends Component {
   constructor(props) {
     super(props);
 //-----------------------------------------------------------------------------------------STATE
     this.state = {
-      'obj3DRef': 'estintore',
       'rotation': [0, 90, 0],
       'questionTextPosition': [0.7, 2, -6],
       'isQuestionClicked': false,
@@ -66,11 +69,17 @@ class RenderAR extends Component {
   }
 
   render() {
+    for (let i = 0; i < json.item.length; i++) {
+      console.log(json.item[i].name);
+      if(json.item[i].name.localeCompare(link) == 0) {
+        jsonDataSelected=json.item[i].info;
+      } 
+    }
     var questions = this._getRenderQuestions();
     var answers=[];
     var result = <MyViroText text={this.state.textDoneWrong}
                              color={this.state.colorDoneWrong}
-                             pos={[-0.25, -2, -6]}
+                             pos={[1.5, -5, -6]}
                              click= {null} />;
     var img = <ViroImage
                              height={0.5}
@@ -127,7 +136,9 @@ class RenderAR extends Component {
         colorDoneWrong: CustomColor.red,
         textDoneWrong: '  SBAGLIATO'});
         setTimeout(() => {this.setState({ arrayDoneAnswer: [], setVisibleDoneWrong: false})}, delay)
-      this.state.arrayDoneQuestion.splice(this.state.arrayDoneQuestion.indexOf(this.state.questionIndexClicked), 1);
+        if(this.state.arrayDoneQuestion.includes(this.state.questionIndexClicked)) {
+          this.state.arrayDoneQuestion.splice(this.state.arrayDoneQuestion.indexOf(this.state.questionIndexClicked), 1);
+        }
       this.state.arrayMissQuestion.push(this.state.questionIndexClicked);
       setTimeout(() => {this._setBackToQuestions()}, delay)
     }
@@ -142,22 +153,22 @@ class RenderAR extends Component {
   //-----------------------------------------------------------------------------------------GETTER
 
   _getSource3DObj() {
-    if (this.state.obj3DRef == 'estintore') return require("./res/obj3D/estintore.obj")
+    if (link == 'estintore') return require("./res/obj3D/estintore.obj")
   }
 
   _getResoruces3DObj() {
-    if (this.state.obj3DRef == 'estintore') return require("./res/obj3D/estintore.mtl")
+    if (link == 'estintore') return require("./res/obj3D/estintore.mtl")
   }
 
   _getRenderQuestions() {
     let q = jsonDataSelected.questions;
     var arrayQ = [];
-    var arrayP = this._getArrayPositionByNUmberItemRadius(q.length);
+    var arrayP = this._getArrayPositionByNUmberItemCulomn(q.length);
     for (let i = 0; i < q.length; i++) {
       var tmp = <MyViroText text={q[i].text}
       align = "center"
       weight = '800'
-      anim={{name: "shaking", run: true, loop: true}}
+      anim={null}
       rot={[0,0,-10]}
       border = {3}
       color={this._setQuestionColor(i)}
@@ -260,7 +271,7 @@ class RenderAR extends Component {
   //-----------------------------------------------------------------------------------------CHECKER
 
   _check3DObjPosition() {
-    return (this.state.isQuestionClicked ? [-1.2, 0.8, -6] : [0, 0.8, -6]);
+    return (this.state.isQuestionClicked ? [-1.2, 0.8, -6] : [-1.2, 0.8, -6]);
   }
 
   _checkCorrectAnswer(tmpIndexAnswer) {

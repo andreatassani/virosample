@@ -21,9 +21,10 @@ const screens = {
     },
     AR: {
         screen: StackAR,
-        navigationOptions: {
-            title: 'Augmented Reality',
-          },
+            navigationOptions: ({ navigation }) => ({
+                headerLeft: (<HeaderBackButton onPress={_ => navigation.navigate("Home")}/>),
+                title: 'Augmented Reality',
+            }),
     },
 }
 const stack = createStackNavigator(screens);
