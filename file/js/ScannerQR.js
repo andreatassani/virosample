@@ -132,6 +132,7 @@
      alignItems: 'center',
      textAlign: 'center',
      marginVertical: hp('1%'),
+     color: CustomColor.white,
    },
  });
  

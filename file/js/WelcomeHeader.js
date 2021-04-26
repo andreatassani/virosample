@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
       paddingHorizontal: 40,
     },
     logo: {
-      opacity: 0.7,
+      opacity: 0.5,
       overflow: 'visible',
       resizeMode: 'cover',
       marginLeft: -60,
       marginBottom: -30,
+      backgroundColor: CustomColor.grey,
     },
   });
 export default WelcomeHeader;

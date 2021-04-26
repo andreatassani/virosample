@@ -32,10 +32,11 @@
  const styles = StyleSheet.create({
      background: {
  
-       paddingTop: 345,
+       paddingTop: 350,
        paddingHorizontal: 40,
      },
      logo: {
+      backgroundColor: CustomColor.white,
        opacity: 1,
        overflow: 'hidden',
        resizeMode: 'cover',

@@ -10,19 +10,13 @@
  
  export default function Home ({ navigation }) {
   const isDarkMode = useColorScheme() === 'dark';
-   const backgroundStyle = {
-     backgroundColor: isDarkMode ? CustomColor.darker : CustomColor.lighter,
-   };
    const pressHandlerToQR = () => {
         navigation.navigate('QR');
    }
  
    return (
-       <SafeAreaView >
+       <SafeAreaView style={{backgroundColor : CustomColor.white}}>
          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-         <ScrollView
-           contentInsetAdjustmentBehavior="automatic"
-           >
            <WelcomeHeader/>
            <View style={[styles.sectionButton]}>
              <Text style={styles.titleText}> Choose an experience: </Text>
@@ -36,7 +30,6 @@
                <Text style={styles.text}>Offer an in-depth study</Text>
              </TouchableOpacity>
            </View>
-         </ScrollView>
        </SafeAreaView>
    );
  };
@@ -47,11 +40,14 @@
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
+    height: hp('60%'),
+    backgroundColor: CustomColor.white,
    },
    titleText: {
     fontSize: 32,
     textAlignVertical: 'center',
-    margin: wp('5%')
+    margin: wp('5%'),
+    marginTop: hp("-3%"),
    },
    highlight: {
      fontWeight: '700',
@@ -74,6 +70,7 @@
      alignItems: 'center',
      textAlign: 'center',
      marginVertical: hp('1%'),
+     color: CustomColor.white,
    },
  });
  

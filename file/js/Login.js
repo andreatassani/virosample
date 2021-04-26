@@ -23,24 +23,18 @@ class Login extends Component {
         return (
         <SafeAreaView >
          <StatusBar/>
-         <ScrollView
-           contentInsetAdjustmentBehavior="automatic"
-           >
            <AccountHeader/>
            <View style={[styles.sectionButton]}>
-             <Text style={styles.titleText}> Insert your credential: </Text>
-
                <Text style={styles.text}>Email/username:</Text>
                <TextInput style={styles.input} placeholder="click here to write" onChangeText={(val)=>this.setState({name : val})}/>
                <Text style={styles.text}>Password:</Text>
                <TextInput style={styles.input} placeholder="click here to write" secureTextEntry={true} onChangeText={(val)=>this.setState({password : val})}/>
                {!this.state.wrong ? null :
-                <Text style={styles.wrong}>hai sbagliato, riprovare!</Text>}
+                <Text style={styles.wrong}>Ops! Forse hai sbagliato a digitare... Riprova</Text>}
                <TouchableOpacity style={styles.button} onPress={()=> this._checkLogin()}>
-               <Text style={styles.text}>Login</Text>
+               <Text style={styles.textWhite}>Login</Text>
              </TouchableOpacity>
            </View>
-         </ScrollView>
        </SafeAreaView>
         )
     }
@@ -62,6 +56,8 @@ const styles = StyleSheet.create({
      justifyContent: 'center',
      alignItems: 'center',
      textAlignVertical: 'center',
+     backgroundColor: CustomColor.white,
+     height: hp('55%'),
     },
     titleText: {
      fontSize: 32,
@@ -78,7 +74,6 @@ const styles = StyleSheet.create({
       width: wp('40%'),
       borderRadius: 60,
       margin: wp('6%'),
-      borderColor: CustomColor.black,
     },
     input: {
         flexDirection: 'column',
@@ -86,7 +81,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: wp('80%'),
         borderRadius: 5,
-        margin: wp('2%'),
+        margin: wp('3%'),
         borderColor: CustomColor.black,
       },
  
@@ -99,8 +94,18 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginVertical: hp('1%'),
     },
+    textWhite: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: CustomColor.white,
+      textAlignVertical: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      marginVertical: hp('1%'),
+    },
     wrong: {
-        fontSize: 24,
+        fontSize: 16,
         color: CustomColor.red,
         fontWeight: 'bold',
         textAlignVertical: 'center',
