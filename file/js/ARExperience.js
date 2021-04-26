@@ -4,10 +4,7 @@ import { Alert, ShadowPropTypesIOS, ToastAndroid } from 'react-native';
 import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroImage } from 'react-viro';
 import CustomColor from '../value/CustomColor';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
-
-var linkScanned = require("./res/json/linkScanned.json");
-var link = linkScanned.linkScanned;
-
+ 
 var json = require("./res/json/questionAnswer.json");
 var jsonDataSelected = null;
      
@@ -39,18 +36,19 @@ class ARExperience extends Component {
     super(props);
 //-----------------------------------------------------------------------------------------STATE
     this.state = {
-      'rotation': [0, 90, 0],
-      'questionTextPosition': [0.7, 2, -6],
-      'isQuestionClicked': false,
-      'questionIndexClicked': -1,
-      'arrayCorrectAnswer': [],
-      'arrayWrongAnswer': [],
-      'arrayDoneAnswer': [],
-      'arrayDoneQuestion': [],
-      'arrayMissQuestion': [],
-      'setVisibleDoneWrong': false,
-      'colorDoneWrong': null,
-      'textDoneWrong': 'CORRETTO',
+      rotation: [0, 90, 0],
+      questionTextPosition: [0.7, 2, -6],
+      isQuestionClicked: false,
+      questionIndexClicked: -1,
+      arrayCorrectAnswer: [],
+      arrayWrongAnswer: [],
+      arrayDoneAnswer: [],
+      arrayDoneQuestion: [],
+      arrayMissQuestion: [],
+      setVisibleDoneWrong: false,
+      colorDoneWrong: null,
+      textDoneWrong: 'CORRETTO',
+      link: this.props.sceneNavigator.viroAppProps.link,
     }
 //-----------------------------------------------------------------------------------------BIND FUNCTION
     this._getSource3DObj = this._getSource3DObj.bind(this);
@@ -71,10 +69,10 @@ class ARExperience extends Component {
   }
 
   render() {
+
     for (let i = 0; i < json.item.length; i++) {
-      console.log(json.item[i].name);
-      if(json.item[i].name.localeCompare(link) == 0) {
-        jsonDataSelected=json.item[i].info;
+      if(json.item[i].name == this.state.link) {
+        jsonDataSelected=json.item[0].info;
       } 
     }
     var questions = this._getRenderQuestions();
@@ -155,11 +153,11 @@ class ARExperience extends Component {
   //-----------------------------------------------------------------------------------------GETTER
 
   _getSource3DObj() {
-    if (link == 'estintore') return require("./res/obj3D/estintore.obj")
+    if (this.state.link == "estintore") return require("./res/obj3D/estintore.obj")
   }
 
   _getResoruces3DObj() {
-    if (link == 'estintore') return require("./res/obj3D/estintore.mtl")
+    if (this.state.link == "estintore") return require("./res/obj3D/estintore.mtl")
   }
 
   _getRenderQuestions() {

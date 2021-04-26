@@ -15,8 +15,7 @@ class RenderAR extends Component {
     this.state = {
 
     }
-    this._renderTrackingText = this._renderTrackingText.bind(this);
-    this._onTrackingInit = this._onTrackingInit.bind(this);
+
 
   }
 
@@ -27,14 +26,14 @@ class RenderAR extends Component {
             initialScene={
                 {
                     scene: ARExperience,
+                    
                 }
             }
+            viroAppProps={{link: this.props.navigation.getParam('link', 'nessun dato letto')}}
          />
-          <View  style={{position: 'absolute',  left: 0, right: 0, bottom: 77, alignItems: 'center'}}>
-            <TouchableOpacity style={localStyles.button}>
-              <Text style={localStyles.text}> bottone tradizionale in overlay</Text>
-            </TouchableOpacity>
-          </View>
+         <TouchableOpacity style={localStyles.button}>
+           <Text> {JSON.stringify(this.props.navigation.getParam('link', 'nessun dato letto'))}</Text>
+         </TouchableOpacity>
         </View>
 
     );
