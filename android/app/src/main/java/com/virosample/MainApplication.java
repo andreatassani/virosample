@@ -3,6 +3,7 @@ package com.virosample;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.sha256lib.Sha256Package;
 import com.swmansion.rnscreens.RNScreensPackage;
 import io.expo.appearance.RNCAppearancePackage;
 import com.zoontek.rnpermissions.RNPermissionsPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new Sha256Package(),
             new RNScreensPackage(),
             new RNCAppearancePackage(),
             new RNPermissionsPackage(),

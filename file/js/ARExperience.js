@@ -96,8 +96,8 @@ class ARExperience extends Component {
       <ViroARScene>
         <ViroAmbientLight color="#aaaaaa" />
         <Viro3DObject
-          source={this._getSource3DObj()}
-          resources={[this._getResoruces3DObj()]}
+          source={this._getSource3DObj(this.state.link)}
+          resources={[this._getResoruces3DObj(this.state.link)]}
           position={this._check3DObjPosition()}
           scale={[2, 2, 2]}
           animation={{ name: "rotate", run: true, loop: true }}
@@ -152,12 +152,12 @@ class ARExperience extends Component {
   }
   //-----------------------------------------------------------------------------------------GETTER
 
-  _getSource3DObj() {
-    if (this.state.link == "estintore") return require("./res/obj3D/estintore.obj")
+  _getSource3DObj(scannedSource) {
+    if (scannedSource == "estintore") return require("./res/obj3D/estintore.obj")
   }
 
-  _getResoruces3DObj() {
-    if (this.state.link == "estintore") return require("./res/obj3D/estintore.mtl")
+  _getResoruces3DObj(scannedResource) {
+    if (scannedResource == "estintore") return require("./res/obj3D/estintore.mtl")
   }
 
   _getRenderQuestions() {
@@ -166,14 +166,14 @@ class ARExperience extends Component {
     var arrayP = this._getArrayPositionByNUmberItemCulomn(q.length);
     for (let i = 0; i < q.length; i++) {
       var tmp = <MyViroText text={q[i].text}
-      align = "center"
-      weight = '800'
-      anim={null}
-      rot={[0,0,-10]}
-      border = {3}
-      color={this._setQuestionColor(i)}
-      pos={this.state.questionIndexClicked == q[i].id ? this.state.questionTextPosition : arrayP[i]}
-      click={() => this._onClickQuestion(q[i].id)} />;
+                            align = "center"
+                            weight = '800'
+                            anim={null}
+                            rot={[0,0,-10]}
+                            border = {3}
+                            color={this._setQuestionColor(i)}
+                            pos={this.state.questionIndexClicked == q[i].id ? this.state.questionTextPosition : arrayP[i]}
+                            click={() => this._onClickQuestion(q[i].id)} />;
       !this.state.isQuestionClicked ? arrayQ.push(tmp) : (this.state.questionIndexClicked == i ? arrayQ.push(tmp) : null);
     }
     return arrayQ;
@@ -185,14 +185,14 @@ class ARExperience extends Component {
     var arrayA = [];
     for (let i = 0; i < a.length; i++) {
         arrayA.push(<MyViroText text={(i+1)+"- "+a[i].text}
-          align = "left"
-          weight = "bold"
-          rot = {null}
-          border = {2}
-          color={this._setAnswerColor(i)}
-          anim={null}
-          pos={arrayP[i]}
-          click={() => this._onClickAnswer(a[i].answerID)} />)
+                                align = "left"
+                                weight = "bold"
+                                rot = {null}
+                                border = {2}
+                                color={this._setAnswerColor(i)}
+                                anim={null}
+                                pos={arrayP[i]}
+                                click={() => this._onClickAnswer(a[i].answerID)} />)
     }
     return arrayA;
   }
@@ -319,8 +319,6 @@ ViroAnimations.registerAnimations({
   //-----------------------------------------------------------------------------------------UTILITY
 
 function compareArrays(a,b){
-  
-  
   if (a.toString() === b.toString()) return true;
   a.sort();
   b.sort();

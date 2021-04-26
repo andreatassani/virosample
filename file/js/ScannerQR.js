@@ -65,9 +65,10 @@
      return (
          <QRCodeScanner
         onRead={this.onSuccess}
-        flashMode={RNCamera.Constants.FlashMode.torch}
+        flashMode={RNCamera.Constants.FlashMode.auto}
         topContent={
           <Text style={styles.titleText}>{this.state.visible ? null : 'Frame on the QR-code, please!'}</Text>
+
         }
         bottomContent={ this.state.visible ?
           <TouchableOpacity style={styles.button}
@@ -75,6 +76,7 @@
              <Text style={styles.text}>GO!</Text>
            </TouchableOpacity> : null }
       />
+
      );
    }
  
