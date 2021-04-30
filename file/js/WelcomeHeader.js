@@ -12,19 +12,20 @@ import {
     StyleSheet,
     ImageBackground,
 } from 'react-native';
-import {useColorScheme } from 'react-native-appearance';
 import CustomColor  from '../value/CustomColor';
+import isDarkMode from './isDarkMode';
+
+
 
 const WelcomeHeader: () => Node = () => {
-    const isDarkMode = useColorScheme() === 'dark';
     return (
         <ImageBackground
             accessibilityRole="image"
-            source={require("../js/res/images/logo.png")}
+            source={require("../js/res/images/background5.png")}
             style={[
                 styles.background,
                 {
-                    backgroundColor: isDarkMode ? CustomColor.darker : CustomColor.lighter,
+                    backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
                 },
             ]}
             imageStyle={styles.logo}>
@@ -35,16 +36,15 @@ const WelcomeHeader: () => Node = () => {
 const styles = StyleSheet.create({
     background: {
 
-      paddingTop: 350,
+      paddingTop: 370,
       paddingHorizontal: 40,
     },
     logo: {
-      opacity: 0.5,
+      opacity: 1,
       overflow: 'visible',
       resizeMode: 'cover',
       marginLeft: -60,
       marginBottom: -30,
-      backgroundColor: CustomColor.grey,
     },
   });
 export default WelcomeHeader;

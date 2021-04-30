@@ -1,16 +1,12 @@
 'use strict';
 
 export default {
-  primary: '#1292B4',
   white: '#FFF',
-  lighter: '#F3F3F3',
-  light: '#DAE1E7',
-  dark: '#444',
-  darker: '#222',
   black: '#000',
-  lightBlue: '#4489f1',
+  yellow: '#f9ed69',
   red: '#FF2D00',
   green: '#09D000',
   blue: '#0026D0',
   grey: "#e6e6e6",
+  darkGrey: "#6b6c6e",
 };

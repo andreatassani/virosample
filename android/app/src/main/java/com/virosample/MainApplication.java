@@ -3,6 +3,8 @@ package com.virosample;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.codemotionapps.reactnativedarkmode.DarkModePackage;
 import com.sha256lib.Sha256Package;
 import com.swmansion.rnscreens.RNScreensPackage;
 import io.expo.appearance.RNCAppearancePackage;
@@ -31,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new Sha256Package(),
+            new ReanimatedPackage(),
+            new DarkModePackage(),
             new RNScreensPackage(),
             new RNCAppearancePackage(),
             new RNPermissionsPackage(),
@@ -46,6 +49,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected String getJSMainModuleName() {
       return "index";
     }
+
+     @Override
+      protected JSIModulePackage getJSIModulePackage() {
+        return new ReanimatedJSIModulePackage(); // <- add
+      }
   };
 
   @Override

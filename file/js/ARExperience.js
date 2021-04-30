@@ -19,7 +19,7 @@ var MyViroText = (props) => {
   opacity={0.7}
   width={3} height={1.7}
   color={props.color}
-  outerStroke={{ type: "Outline", width: props.border, color: CustomColor.darker}}
+  outerStroke={{ type: "Outline", width: props.border, color: CustomColor.black}}
   style={{ fontSize: 24, fontWeight: props.weight}}
   position={props.pos}
   animation= {props.anim}
@@ -250,18 +250,18 @@ class ARExperience extends Component {
 
   _setQuestionColor(i) {
     if(this.state.questionIndexClicked == i){ 
-      return CustomColor.lightBlue;
+      return CustomColor.yellow;
     } else if(this.state.arrayDoneQuestion.includes(i)){
       return CustomColor.green;
     } else if(this.state.arrayMissQuestion.includes(i)){
       return CustomColor.red;
-    } else return CustomColor.lightBlue;
+    } else return CustomColor.yellow;
   }
 
   _setBackToQuestions(index) {
     return (
       this.setState({
-        colorQuestion: CustomColor.lightBlue,
+        colorQuestion: CustomColor.yellow,
         isQuestionClicked: false,
         questionIndexClicked: -1
       })
@@ -282,7 +282,7 @@ class ARExperience extends Component {
   //-----------------------------------------------------------------------------------------OBJ MATERIAL
 ViroMaterials.createMaterials({
   front: {
-    diffuseColor: CustomColor.lightBlue,
+    diffuseColor: CustomColor.yellow,
   },
   back: {
     diffuseColor: CustomColor.white,

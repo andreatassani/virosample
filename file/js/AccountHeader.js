@@ -12,17 +12,19 @@
      StyleSheet,
      ImageBackground,
  } from 'react-native';
- import {useColorScheme } from 'react-native-appearance';
  import CustomColor  from '../value/CustomColor';
+ import isDarkMode from './isDarkMode';
  
  const AccountHeader: () => Node = () => {
-     const isDarkMode = useColorScheme() === 'dark';
      return (
          <ImageBackground
              accessibilityRole="image"
              source={require("../js/res/images/account.png")}
              style={[
-                 styles.background
+                 styles.background,
+                 {
+                    backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
+                },
              ]}
              imageStyle={styles.logo}>
          </ImageBackground>
@@ -36,12 +38,12 @@
        paddingHorizontal: 40,
      },
      logo: {
-      backgroundColor: CustomColor.white,
        opacity: 1,
        overflow: 'hidden',
        resizeMode: 'cover',
        marginLeft: 0,
        marginBottom: 0,
+       backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
      },
    });
  export default AccountHeader;

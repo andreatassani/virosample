@@ -1,10 +1,11 @@
 'use strict';
 import React, { Component, useState } from 'react';
-import { Alert, ShadowPropTypesIOS, ToastAndroid, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { Alert, ShadowPropTypesIOS, ToastAndroid, TouchableOpacity, View, Text, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroImage } from 'react-viro';
 import CustomColor from '../value/CustomColor';
 import ARExperience from './ARExperience';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import isDarkMode from './isDarkMode';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
 
 //-----------------------------------------------------------------------------------------START CLASS
@@ -13,29 +14,18 @@ class RenderAR extends Component {
     super(props);
 //-----------------------------------------------------------------------------------------STATE
     this.state = {
-
     }
-
-
   }
 
   render() {
     return (
+
         <View style={localStyles.outer}>
            <ViroARSceneNavigator style={localStyles.arView}
-            initialScene={
-                {
-                    scene: ARExperience,
-                    
-                }
-            }
+            initialScene={{ scene: ARExperience, }}
             viroAppProps={{link: this.props.navigation.getParam('link', 'nessun dato letto')}}
          />
-         <TouchableOpacity style={localStyles.button}>
-           <Text> {JSON.stringify(this.props.navigation.getParam('link', 'nessun dato letto'))}</Text>
-         </TouchableOpacity>
         </View>
-
     );
   }
 }
@@ -60,7 +50,7 @@ var localStyles = StyleSheet.create({
 
   button: {
     flexDirection: 'column',
-    backgroundColor: CustomColor.lightBlue,
+    backgroundColor: CustomColor.yellow,
     height: 50,
     width: wp('80%'),
     borderRadius: 60,

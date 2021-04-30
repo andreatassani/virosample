@@ -1,12 +1,14 @@
 
  import QRCodeScanner from 'react-native-qrcode-scanner';
  import React, { Component } from 'react';
- import { Text, StyleSheet, TouchableOpacity, Linking, Alert} from 'react-native';
+ import { Text, StyleSheet, TouchableOpacity, SafeAreaView, Linking, Alert, StatusBar} from 'react-native';
  import { RNCamera } from 'react-native-camera';
  import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
  import {createAppContainer} from 'react-navigation';
  import CustomColor  from '../value/CustomColor';
  import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+ import { useDarkMode } from 'react-native-dark-mode';
+ import isDarkMode from './isDarkMode';
 
 
  
@@ -63,20 +65,20 @@
    // Presents the user with a choice of an AR or VR experience
    _getExperienceSelector() {
      return (
-         <QRCodeScanner
+        <QRCodeScanner
         onRead={this.onSuccess}
         flashMode={RNCamera.Constants.FlashMode.auto}
-        topContent={
+        topContent={[
           <Text style={styles.titleText}>{this.state.visible ? null : 'Frame on the QR-code, please!'}</Text>
-
-        }
-        bottomContent={ this.state.visible ?
+        ]}
+        topViewStyle={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}
+        bottomContent={[ this.state.visible ?
           <TouchableOpacity style={styles.button}
              onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}>
              <Text style={styles.text}>GO!</Text>
-           </TouchableOpacity> : null }
+           </TouchableOpacity> : null ]}
+           bottomViewStyle={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}
       />
-
      );
    }
  
@@ -109,19 +111,21 @@
   titleText: {
     fontSize: 32,
     textAlignVertical: 'center',
-    marginBottom: wp('15%')
+    marginBottom: wp('15%'),
+    color: isDarkMode ? CustomColor.white : CustomColor.black,
    },
    highlight: {
      fontWeight: '700',
    },
    button: {
      flexDirection: 'column',
-     backgroundColor: CustomColor.lightBlue,
+     backgroundColor: CustomColor.yellow,
      height: 50,
      width: wp('30%'),
      borderRadius: 60,
      marginTop: wp('15%'),
-     borderColor: CustomColor.black,
+     borderColor: CustomColor.darkGrey,
+     borderWidth: 3,
    },
 
    text: {
@@ -132,7 +136,7 @@
      alignItems: 'center',
      textAlign: 'center',
      marginVertical: hp('1%'),
-     color: CustomColor.white,
+     color: CustomColor.black,
    },
  });
  

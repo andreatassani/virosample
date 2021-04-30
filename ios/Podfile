@@ -21,4 +21,8 @@ target 'ViroSample' do
 
   pod 'RNSha256', :path => '../node_modules/react-native-sha256'
 
+  pod 'ReactNativeDarkMode', :path => '../node_modules/react-native-dark-mode'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
 end
