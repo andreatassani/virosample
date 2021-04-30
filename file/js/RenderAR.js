@@ -5,7 +5,6 @@ import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARS
 import CustomColor from '../value/CustomColor';
 import ARExperience from './ARExperience';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
-import isDarkMode from './isDarkMode';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
 
 //-----------------------------------------------------------------------------------------START CLASS

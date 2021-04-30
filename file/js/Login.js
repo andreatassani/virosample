@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, Linking, Alert, TextInput, SafeAreaView, StatusBar, ScrollView, View, ImageBackground, Image} from 'react-native';
 import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
+import {useTheme} from 'react-navigation';
 import CustomColor  from '../value/CustomColor';
 import  AccountHeader  from './AccountHeader';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import isDarkMode from './isDarkMode';
-
 
 
 class Login extends Component {
@@ -19,11 +17,11 @@ class Login extends Component {
         }
         this._checkLogin = this._checkLogin.bind(this);
     }
-
+    
     render() {
         return (
-          <SafeAreaView style={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}>
-          <StatusBar barStyle={ isDarkMode ? "dark-content" : "light-content"}/>  
+          <SafeAreaView>
+          <StatusBar/> 
            <ImageBackground style={[styles.sectionButton]} source={require("../js/res/images/background4.png")} imageStyle={{opacity: 0.8}}>
                <Text style={styles.text}>Email/username:</Text>
                <TextInput style={styles.input} placeholder="click here to write" onChangeText={(val)=>this.setState({name : val})}/>
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       textAlignVertical: 'center',
-      backgroundColor: isDarkMode ? CustomColor.black : CustomColor.white,
+      backgroundColor: CustomColor.black,
       height: hp('100%'),
       width: wp('100%'),
       resizeMode: 'contain',
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       textAlign: 'center',
       marginTop: hp('5%'),
-      color: isDarkMode ? CustomColor.white : CustomColor.black,
+      color: CustomColor.white,
     },
     textButton: {
       fontSize: 24,

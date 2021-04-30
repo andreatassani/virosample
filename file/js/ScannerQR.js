@@ -7,7 +7,7 @@
  import {createAppContainer} from 'react-navigation';
  import CustomColor  from '../value/CustomColor';
  import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
- import isDarkMode from './isDarkMode';
+
 
 
  
@@ -68,15 +68,15 @@
         onRead={this.onSuccess}
         flashMode={RNCamera.Constants.FlashMode.auto}
         topContent={
-          <Text style={styles.titleText}>{this.state.visible ? null : 'Frame on the QR-code, please!'}</Text>
+          <Text style={styles.titleText}>{this.state.visible ? this.state.data : 'Frame on the QR-code, please!'}</Text>
         }
-        topViewStyle={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}
+        topViewStyle={{backgroundColor : CustomColor.black}}
         bottomContent={ this.state.visible ?
           <TouchableOpacity style={styles.button}
              onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}>
              <Text style={styles.text}>GO!</Text>
            </TouchableOpacity> : null }
-           bottomViewStyle={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}
+           bottomViewStyle={{backgroundColor :CustomColor.black}}
       />
      );
    }
@@ -111,7 +111,7 @@
     fontSize: 32,
     textAlignVertical: 'center',
     marginBottom: wp('15%'),
-    color: isDarkMode ? CustomColor.white : CustomColor.black,
+    color: CustomColor.white,
    },
    highlight: {
      fontWeight: '700',

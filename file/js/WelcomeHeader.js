@@ -13,7 +13,6 @@ import {
     ImageBackground,
 } from 'react-native';
 import CustomColor  from '../value/CustomColor';
-import isDarkMode from './isDarkMode';
 
 
 
@@ -21,11 +20,11 @@ const WelcomeHeader: () => Node = () => {
     return (
         <ImageBackground
             accessibilityRole="image"
-            source={require("../js/res/images/background5.png")}
+            source={require("../js/res/images/pattern.png")}
             style={[
                 styles.background,
                 {
-                    backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
+                    backgroundColor:  CustomColor.black,
                 },
             ]}
             imageStyle={styles.logo}>

@@ -1,10 +1,9 @@
  import React from 'react';
  import type {Node} from 'react';
- import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+ import { SafeAreaView, ScrollView, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
  import  WelcomeHeader  from './WelcomeHeader';
  import CustomColor  from '../value/CustomColor';
  import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
- import isDarkMode from './isDarkMode';
 
 
 
@@ -15,11 +14,11 @@
         navigation.navigate('QR');
    }
    return (
-       <SafeAreaView style={{backgroundColor : isDarkMode ? CustomColor.black : CustomColor.white}}>
-         <StatusBar barStyle={ isDarkMode ? CustomColor.black : CustomColor.white} />
-           <WelcomeHeader/>
-           <View style={[styles.sectionButton]}>
-             <Text style={styles.titleText}> Choose an experience: </Text>
+
+    <SafeAreaView>
+          <StatusBar/>  
+           <ImageBackground style={[styles.sectionButton]} source={require("../js/res/images/pattern.png")} imageStyle={{opacity: 0.5}}>
+           <Text style={styles.titleText}> Choose an experience: </Text>
              <TouchableOpacity style={styles.button} onPress={pressHandlerToQR}>
                <Text style={styles.text}>QR-code scanner</Text>
              </TouchableOpacity>
@@ -29,7 +28,7 @@
              <TouchableOpacity style={styles.button}>
                <Text style={styles.text}>Offer an in-depth study</Text>
              </TouchableOpacity>
-           </View>
+           </ImageBackground >     
        </SafeAreaView>
    );
  };
@@ -37,11 +36,14 @@
  const styles = StyleSheet.create({
 
    sectionButton: {
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
-    height: hp('60%'),
-    backgroundColor: isDarkMode ? CustomColor.black : CustomColor.white,
+    backgroundColor: CustomColor.black,
+    height: hp('100%'),
+    width: wp('100%'),
+    resizeMode: 'contain',
    },
    titleText: {
     fontSize: 32,
@@ -62,6 +64,9 @@
      margin: wp('6%'),
      borderColor: CustomColor.darkGrey,
      borderWidth: 3,
+     shadowColor: CustomColor.black,
+     shadowOpacity: 1,
+     shadowRadius: 20,
    },
 
    text: {

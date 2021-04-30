@@ -13,7 +13,6 @@
      ImageBackground,
  } from 'react-native';
  import CustomColor  from '../value/CustomColor';
- import isDarkMode from './isDarkMode';
  
  const AccountHeader: () => Node = () => {
      return (
@@ -23,7 +22,7 @@
              style={[
                  styles.background,
                  {
-                    backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
+                    backgroundColor:  CustomColor.black,
                 },
              ]}
              imageStyle={styles.logo}>
@@ -43,7 +42,7 @@
        resizeMode: 'cover',
        marginLeft: 0,
        marginBottom: 0,
-       backgroundColor:  isDarkMode ? CustomColor.black : CustomColor.white,
+       backgroundColor:  CustomColor.black,
      },
    });
  export default AccountHeader;
