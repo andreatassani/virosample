@@ -68,7 +68,7 @@
         onRead={this.onSuccess}
         flashMode={RNCamera.Constants.FlashMode.auto}
         topContent={
-          <Text style={styles.titleText}>{this.state.visible ? this.state.data : 'Frame on the QR-code, please!'}</Text>
+          <Text style={styles.titleText}>{this.state.visible ? this.state.data : 'Inquadra il QR-code!'}</Text>
         }
         topViewStyle={{backgroundColor : CustomColor.black}}
         bottomContent={ this.state.visible ?

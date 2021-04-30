@@ -6,7 +6,6 @@ import CustomColor  from '../value/CustomColor';
 import  AccountHeader  from './AccountHeader';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
         width: wp('80%'),
         borderRadius: 5,
         margin: wp('3%'),
-        borderColor: CustomColor.darkGrey,
       },
  
     text: {

@@ -16,11 +16,12 @@ var MyViroText = (props) => {
   textAlignVertical="top"
   textLineBreakMode="Justify"
   rotate={props.rot}
-  opacity={0.7}
+  opacity={1}
   width={3} height={1.7}
   color={props.color}
   outerStroke={{ type: "Outline", width: props.border, color: CustomColor.black}}
   style={{ fontSize: 24, fontWeight: props.weight}}
+  transformBehaviors="billboardX"
   position={props.pos}
   animation= {props.anim}
   onClick={props.click}
@@ -72,7 +73,7 @@ class ARExperience extends Component {
 
     for (let i = 0; i < json.item.length; i++) {
       if(json.item[i].name == this.state.link) {
-        jsonDataSelected=json.item[0].info;
+        jsonDataSelected=json.item[i].info;
       } 
     }
     var questions = this._getRenderQuestions();
@@ -88,6 +89,7 @@ class ARExperience extends Component {
                              position= {[-1.5,-3.5,-6]}
                              placeholderSource={require("./res/images/arrow.png")}
                              source={require("./res/images/arrow.png")}
+                             transformBehaviors="billboardX"
                              onClick = {() => this._setBackToQuestions()}/>;
     if(this.state.isQuestionClicked) {
       answers = this._getRenderAnswers(this.state.questionIndexClicked);  
@@ -170,7 +172,7 @@ class ARExperience extends Component {
                             weight = '800'
                             anim={null}
                             rot={[0,0,-10]}
-                            border = {3}
+                            border = {5}
                             color={this._setQuestionColor(i)}
                             pos={this.state.questionIndexClicked == q[i].id ? this.state.questionTextPosition : arrayP[i]}
                             click={() => this._onClickQuestion(q[i].id)} />;
@@ -188,7 +190,7 @@ class ARExperience extends Component {
                                 align = "left"
                                 weight = "bold"
                                 rot = {null}
-                                border = {2}
+                                border = {4}
                                 color={this._setAnswerColor(i)}
                                 anim={null}
                                 pos={arrayP[i]}
