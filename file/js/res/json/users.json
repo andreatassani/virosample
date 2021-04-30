@@ -2,9 +2,8 @@
     "users": [
         {
             "ID": 0,
-            "name": "a",
-            "password": "a",
-            "encrypted": "fa5a0653965ee3be758edba491d6296eb9127c0ac7fc9d14e9c5316306f7ce03",
+            "name": "andrea",
+            "password": "12345"
         }
     ]
 }

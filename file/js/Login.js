@@ -3,7 +3,6 @@ import { Text, StyleSheet, TouchableOpacity, Linking, Alert, TextInput, SafeArea
 import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import CustomColor  from '../value/CustomColor';
-import { useColorScheme } from 'react-native-appearance';
 import  AccountHeader  from './AccountHeader';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import isDarkMode from './isDarkMode';
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
       fontWeight: '700',
     },
     button: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       backgroundColor: CustomColor.yellow,
       height: 50,
       width: wp('40%'),
@@ -109,7 +108,6 @@ const styles = StyleSheet.create({
       color: CustomColor.black,
       textAlignVertical: 'center',
       justifyContent: 'center',
-      alignItems: 'center',
       textAlign: 'center',
       marginVertical: hp('1%'),
     },
