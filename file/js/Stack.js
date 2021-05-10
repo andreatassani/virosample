@@ -3,7 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import Home from './Home';
-import { ScannerQR } from './ScannerQR';
+import ScannerQR from './ScannerQR';
 import RenderAR from './RenderAR';
 import Login from './Login';
 

@@ -25,4 +25,6 @@ target 'ViroSample' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
+
 end

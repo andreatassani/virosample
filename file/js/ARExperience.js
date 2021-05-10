@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component, useState } from 'react';
-import { Alert, ShadowPropTypesIOS, ToastAndroid } from 'react-native';
+import { Alert, ShadowPropTypesIOS, ToastAndroid, TouchableOpacity } from 'react-native';
 import { ViroARScene, ViroBox, ViroAmbientLight, ViroText, Viro3DObject, ViroARSceneNavigator, ViroMaterials, ViroAnimations, ViroImage } from 'react-viro';
 import CustomColor from '../value/CustomColor';
 //-----------------------------------------------------------------------------------------GLOBAL VAR
@@ -159,7 +159,7 @@ class ARExperience extends Component {
   }
 
   _getResoruces3DObj(scannedResource) {
-    if (scannedResource == "estintore") return require("./res/obj3D/estintore.mtl")
+    if (scannedResource == "estintore") return require("./res/obj3D/materials.mtl")
   }
 
   _getRenderQuestions() {

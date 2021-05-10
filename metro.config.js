@@ -19,7 +19,8 @@ module.exports = (async () => {
 
   return {
     resolver: {
-      assetExts: [...assetExts, "obj", "mtl", "JPG", "vrx", "hdr", "gltf", "glb", "bin", "arobject", "gif"]
-    }
+      assetExts: [...assetExts, "obj", "mtl", "JPG", "vrx", "hdr", "gltf", "glb", "bin", "arobject", "gif"],
+      sourceExts: ['jsx','js','ts','tsx']
+    },
   };
 })();

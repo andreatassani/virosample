@@ -5,6 +5,7 @@ export default {
   black: '#000',
   yellow: '#f9ed69',
   yellowRgba: 'rgba(249, 237, 105, 0.2)',
+  greyRgba: 'rgba(50,50,50, 0.7)',
   red: '#FF2D00',
   green: '#09D000',
   blue: '#0026D0',

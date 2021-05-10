@@ -3,6 +3,7 @@ package com.virosample;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.codemotionapps.reactnativedarkmode.DarkModePackage;
 import com.sha256lib.Sha256Package;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCMaskedViewPackage(),
             new ReanimatedPackage(),
             new DarkModePackage(),
             new RNScreensPackage(),

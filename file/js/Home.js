@@ -4,6 +4,7 @@
  import  WelcomeHeader  from './WelcomeHeader';
  import CustomColor  from '../value/CustomColor';
  import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { ColorPropType } from 'react-native';
 
 
 
@@ -18,16 +19,16 @@
     <SafeAreaView>
           <StatusBar/>  
            <ImageBackground style={[styles.sectionButton]} source={require("../js/res/images/pattern.png")} imageStyle={{opacity: 0.5}}>
-           <Text style={styles.titleText}> Choose an experience: </Text>
+           <Text style={styles.titleText}> Choose an experience </Text>
              <TouchableOpacity style={styles.button} onPress={pressHandlerToQR}>
                <Text style={styles.text}>QR-code scanner</Text>
              </TouchableOpacity>
              <TouchableOpacity style={styles.button}>
-               <Text style={styles.text}>Reproduce video tutorial</Text>
-             </TouchableOpacity >
-             <TouchableOpacity style={styles.button}>
-               <Text style={styles.text}>Offer an in-depth study</Text>
+               <Text style={styles.text}>-INATTIVO-</Text>
              </TouchableOpacity>
+             <TouchableOpacity style={styles.button}>
+               <Text style={styles.text}>-INATTIVO-</Text>
+   </TouchableOpacity>
            </ImageBackground >     
        </SafeAreaView>
    );
@@ -46,11 +47,13 @@
     resizeMode: 'contain',
    },
    titleText: {
-    fontSize: 32,
+    fontSize: 40,
     textAlignVertical: 'center',
-    margin: wp('5%'),
-    marginTop: hp("-3%"),
+    margin: wp('6%'),
+    marginVertical: hp('7%'),
     color: CustomColor.white,
+    backgroundColor : CustomColor.black,
+    borderRadius : 20,
    },
    highlight: {
      fontWeight: '700',

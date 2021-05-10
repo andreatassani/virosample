@@ -1,122 +1,125 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableOpacity, Linking, Alert, TextInput, SafeAreaView, StatusBar, ScrollView, View, ImageBackground, Image} from 'react-native';
-import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
-import {useTheme} from 'react-navigation';
-import CustomColor  from '../value/CustomColor';
-import  AccountHeader  from './AccountHeader';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { Text, StyleSheet, TouchableOpacity, Linking, Alert, TextInput, SafeAreaView, StatusBar, ScrollView, View, ImageBackground, Image } from 'react-native';
+import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack';
+import { useTheme } from 'react-navigation';
+import CustomColor from '../value/CustomColor';
+import AccountHeader from './AccountHeader';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name : "",
-            password : "",
-            wrong : false,
-        }
-        this._checkLogin = this._checkLogin.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      password: "",
+      wrong: false,
     }
-    
-    render() {
-        return (
-          <SafeAreaView>
-          <StatusBar/> 
-           <ImageBackground style={[styles.sectionButton]} source={require("../js/res/images/background4.png")} imageStyle={{opacity: 0.8}}>
-               <Text style={styles.text}>Email/username:</Text>
-               <TextInput style={styles.input} placeholder="click here to write" onChangeText={(val)=>this.setState({name : val})}/>
-               <Text style={styles.text}>Password:</Text>
-               <TextInput style={styles.input} placeholder="click here to write" secureTextEntry={true} onChangeText={(val)=>this.setState({password : val})}/>
-               {!this.state.wrong ? null :
-                <Text style={styles.wrong}>Ops! Forse hai sbagliato a digitare... Riprova</Text>}
-               <TouchableOpacity style={styles.button} onPress={()=> this._checkLogin()}>
-               <Text style={styles.textButton}>Login</Text>
-             </TouchableOpacity>
-           </ImageBackground >     
-       </SafeAreaView>
-        )
-    }
+    this._checkLogin = this._checkLogin.bind(this);
+  }
 
-    _checkLogin() {
-        var users = require("../js/res/json/users.json").users;
-        for (let i = 0; i < users.length; i++) {
-            if(users[i].name == this.state.name && users[i].password == this.state.password) {
-                return this.props.navigation.navigate("Home");
-            }
-        }
-        return this.setState({wrong : true})
-    }
+  render() {
+    return (
+      <SafeAreaView>
+        <StatusBar />
+        <ImageBackground style={[styles.sectionButton]} source={require("../js/res/images/background4.png")} imageStyle={{ opacity: 0.8 }}>
+          <Text style={styles.text}>Email/username:</Text>
+          <TextInput style={styles.input} placeholder="click here to write" onChangeText={(val) => this.setState({ name: val })} />
+          <Text style={styles.text}>Password:</Text>
+          <TextInput style={styles.input} placeholder="click here to write" secureTextEntry={true} onChangeText={(val) => this.setState({ password: val })} />
+          {!this.state.wrong ? null :
+            <Text style={styles.wrong}>Ops! Forse hai sbagliato a digitare... Riprova</Text>}
+          <TouchableOpacity style={styles.button} onPress={() => this._checkLogin()}>
+            <Text style={styles.textButton}>Login</Text>
+          </TouchableOpacity>
+        </ImageBackground >
+      </SafeAreaView>
+    )
+  }
+
+  _checkLogin() {
+    let data = new URLSearchParams();
+    data.append(`companyId`, `20099`);
+    data.append(`screenName`, `testtinfo`);
+    data.append(`pwd`, `test`);
+
+    fetch('https://elearning.tinfo.it/o/ar-elearning/cors').then(response => response.json())
+      .then(json => {
+        console.log(json)
+      })
+      .catch(error => console.log(error))
+  }
 }
 
 const styles = StyleSheet.create({
 
-    sectionButton: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlignVertical: 'center',
-      backgroundColor: CustomColor.black,
-      height: hp('100%'),
-      width: wp('100%'),
-      resizeMode: 'contain',
-    },
-    titleText: {
-     fontSize: 32,
-     textAlignVertical: 'center',
-     margin: wp('5%'),
-     
-    },
-    highlight: {
-      fontWeight: '700',
-    },
-    button: {
-      flexDirection: 'column',
-      backgroundColor: CustomColor.yellow,
-      height: 50,
-      width: wp('40%'),
-      marginTop: hp('5%'),
-      marginHorizontal: wp('22%'),
-      borderRadius: 60,
-      borderWidth: 3,
-      borderColor: CustomColor.darkGrey,
-    },
-    input: {
-        flexDirection: 'column',
-        backgroundColor: CustomColor.grey,
-        height: 50,
-        width: wp('80%'),
-        borderRadius: 5,
-        margin: wp('3%'),
-      },
- 
-    text: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      textAlignVertical: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      marginTop: hp('5%'),
-      color: CustomColor.white,
-    },
-    textButton: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: CustomColor.black,
-      textAlignVertical: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      marginVertical: hp('1%'),
-    },
-    wrong: {
-        fontSize: 16,
-        color: CustomColor.red,
-        fontWeight: 'bold',
-        textAlignVertical: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        marginVertical: hp('1%'),
-      },
-  });
+  sectionButton: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlignVertical: 'center',
+    backgroundColor: CustomColor.black,
+    height: hp('100%'),
+    width: wp('100%'),
+    resizeMode: 'contain',
+  },
+  titleText: {
+    fontSize: 32,
+    textAlignVertical: 'center',
+    margin: wp('5%'),
+
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  button: {
+    flexDirection: 'column',
+    backgroundColor: CustomColor.yellow,
+    height: 50,
+    width: wp('40%'),
+    marginTop: hp('5%'),
+    marginHorizontal: wp('22%'),
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: CustomColor.darkGrey,
+  },
+  input: {
+    flexDirection: 'column',
+    backgroundColor: CustomColor.grey,
+    height: 50,
+    width: wp('80%'),
+    borderRadius: 5,
+    margin: wp('3%'),
+  },
+
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    marginTop: hp('5%'),
+    color: CustomColor.white,
+  },
+  textButton: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: CustomColor.black,
+    textAlignVertical: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginVertical: hp('1%'),
+  },
+  wrong: {
+    fontSize: 16,
+    color: CustomColor.red,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    marginVertical: hp('1%'),
+  },
+});
 
 export default Login;
