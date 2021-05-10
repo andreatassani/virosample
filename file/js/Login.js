@@ -37,16 +37,13 @@ class Login extends Component {
   }
 
   _checkLogin() {
-    let data = new URLSearchParams();
-    data.append(`companyId`, `20099`);
-    data.append(`screenName`, `testtinfo`);
-    data.append(`pwd`, `test`);
-
-    fetch('https://elearning.tinfo.it/o/ar-elearning/cors').then(response => response.json())
-      .then(json => {
-        console.log(json)
-      })
-      .catch(error => console.log(error))
+    var users = require("../js/res/json/users.json").users;
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].name == this.state.name && users[i].password == this.state.password) {
+        return this.props.navigation.navigate("Home");
+      }
+    }
+    return this.setState({ wrong: true })
   }
 }
 
